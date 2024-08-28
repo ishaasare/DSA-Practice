@@ -1,0 +1,28 @@
+//Time Complexity: O(n2log2n), O(n*n) for traversing, and O(n2log2n) for sorting the vector x, which has a size of n2. So overall time complexity is O(n2log2n).
+//Auxiliary Space: O(n*n), For vector.
+
+class Solution {
+    int[][] sortedMatrix(int N, int Mat[][]) {
+        // code here
+        int temp[] = new int[N*N];
+        int k = 0;
+        for(int i = 0;i<N;i++){
+            for(int j = 0; j<N ; j++){
+                temp[k] = Mat[i][j];
+                k++;
+            }
+        }
+        
+        Arrays.sort(temp);
+        
+        k = 0;
+        for(int i=0;i<N;i++){
+            for(int j=0; j<N; j++){
+                Mat[i][j] = temp[k];
+                k++;
+            }
+        }
+        return Mat;
+        
+    }
+};
