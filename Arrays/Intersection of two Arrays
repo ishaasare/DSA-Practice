@@ -1,0 +1,32 @@
+//TC: O(n+m)
+//SC: O(k) k-no. of intersected elements
+
+class Solution {
+    // Function to return a list containing the intersection of two arrays.
+    static ArrayList<Integer> printIntersection(int arr1[], int arr2[]) {
+        // add your code here
+        ArrayList<Integer> l = new ArrayList<>();
+        int left=0; int right=0;
+        int i=0;
+        while(left<arr1.length && right<arr2.length){
+            if(arr1[left] == arr2[right]){
+                if (l.isEmpty() || l.get(l.size() - 1) != arr1[left]) {
+                l.add(arr1[left]);
+                }
+                left++;
+                right++;
+
+            }
+            else if(arr1[left]<arr2[right]){
+                left++;
+            }
+            else{
+                right++;
+            }
+        }
+        if(l.size()==0){
+            l.add(-1);
+        }
+        return l;
+    }
+}
