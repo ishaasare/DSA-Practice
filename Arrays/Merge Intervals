@@ -1,0 +1,20 @@
+TC:O(nlogn)
+SC:O(n)
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        if(intervals.length==0){
+            return new int[0][];
+        }
+        List<int[]> MI = new ArrayList<>();
+        Arrays.sort(intervals, (a,b) -> Integer.compare(a[0],b[0]));
+        for(int[] inter: intervals){
+            if(MI.size() ==0 || MI.get(MI.size()-1)[1] < inter[0]){
+                MI.add(inter);
+            }
+            else{
+                MI.get(MI.size()-1)[0] = Math.max(MI.get(MI.size()-1)[0], inter[1]);
+            }
+        }
+        return MI.toArray(new int[MI.size()][]);
+    }
+}
