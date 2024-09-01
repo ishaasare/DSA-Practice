@@ -1,0 +1,19 @@
+//TC: O(nxmlogm)
+//SC: O(nxm)
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> hp = new HashMap<>();
+        for (String str: strs){
+            char[] s = str.toCharArray();
+            Arrays.sort(s);
+            String sortedstr = new String(s);
+            if(!hp.containsKey(sortedstr)){
+                hp.put(sortedstr, new ArrayList<>());
+            }
+           
+                hp.get(sortedstr).add(str);
+            
+        }
+        return new ArrayList<>(hp.values());
+    }
+}
