@@ -1,0 +1,90 @@
+RECURSION: TC: O(2^(n+m)) SC:O(n+m)
+class Solution {
+    // Function to find the length of longest common subsequence in two strings.
+    static int lcs(int n, int m, String str1, String str2) {
+        // your code here
+        return func(str1,str2,n-1,m-1);
+    }
+    static int func(String str1, String str2, int i, int j){
+        if(i<0 || j<0){
+            return 0;  //base condition
+        }
+        
+        if(str1.charAt(i)==str2.charAt(j))  return 1 + func(str1,str2,i-1,j-1);
+        
+        return Math.max(func(str1,str2,i-1,j), func(str1,str2,i,j-1)); 
+        
+        
+        
+    }
+    
+}
+
+----------------------------------------------------------------------------------------------------
+MEMOIZATION : TC & SC : O(nxm)
+class Solution {
+    // Function to find the length of longest common subsequence in two strings.
+    static int lcs(int n, int m, String str1, String str2) {
+        int[][] dp = new int[n+1][m+1];  // Initialize the dp array with 0 (as LCS length can be 0)
+        
+        for(int i = 0; i <= n; i++){
+            for(int j = 0; j <= m; j++){
+                dp[i][j] = -1;  // Initialize the dp array with -1 to signify uncalculated subproblems
+            }
+        }
+        
+        return func(str1, str2, n, m, dp);
+    }
+
+    static int func(String str1, String str2, int i, int j, int[][] dp) {
+        if(i == 0 || j == 0) {
+            return 0;  // base condition: if any string is empty, LCS is 0
+        }
+
+        if(dp[i][j] != -1) return dp[i][j];  // If the result is already calculated, return it
+
+        if(str1.charAt(i-1) == str2.charAt(j-1)) {  // Check characters at the current indices
+            dp[i][j] = 1 + func(str1, str2, i-1, j-1, dp);  // If equal, add 1 to the LCS
+        } else {
+            dp[i][j] = Math.max(func(str1, str2, i-1, j, dp), func(str1, str2, i, j-1, dp));  // Otherwise, take the maximum LCS excluding current character from either string
+        }
+        
+        return dp[i][j];
+    }
+}
+
+----------------------------------------------------------------------------------------------
+TABULATION :TC AND SC O(Nxm)
+class Solution {
+    // Function to find the length of the longest common subsequence in two strings.
+    static int lcs(int n, int m, String str1, String str2) {
+        int[][] dp = new int[n+1][m+1];  // Initialize the dp array
+
+        // Fill the dp array using the bottom-up approach
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (str1.charAt(i-1) == str2.charAt(j-1)) {
+                    dp[i][j] = 1 + dp[i-1][j-1];  // If characters match, add 1 to the value from the previous diagonal subproblem
+                } else {
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);  // Otherwise, take the maximum from the subproblems excluding one character from either string
+                }
+            }
+        }
+
+        return dp[n][m];  // The answer will be in dp[n][m], which corresponds to the LCS of str1[0..n-1] and str2[0..m-1]
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
