@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static List<Integer> findDuplicatesO2(int[] nums) {
+        List<Integer> duplicates = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] == nums[j] && !duplicates.contains(nums[i])) {
+                    duplicates.add(nums[i]);
+                }
+            }
+        }
+        return duplicates;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 2, 3, 5};
+        System.out.println("Duplicates: " + findDuplicatesO2(nums));
+    }
+}
+---------------------------------------------------------------------------
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Main {
+    public static List<Integer> findDuplicatesOlogn(int[] nums) {
+        List<Integer> duplicates = new ArrayList<>();
+        Arrays.sort(nums); // Sort the array
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1] && !duplicates.contains(nums[i])) {
+                duplicates.add(nums[i]);
+            }
+        }
+        return duplicates;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 2, 3, 5};
+        System.out.println("Duplicates: " + findDuplicatesOlogn(nums));
+    }
+}
+---------------------------------------------------------------------------
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> duplicates = new ArrayList<>();
+        HashMap<Integer,Integer> mp = new HashMap<>();
+        for(int i:nums){
+            mp.put(i, mp.getOrDefault(i,0)+1);
+        }
+        for(Map.Entry<Integer, Integer> j : mp.entrySet()){
+            if(j.getValue()>1){
+                duplicates.add(j.getKey());
+            }
+        }
+
+        return duplicates;
+    }
+}
