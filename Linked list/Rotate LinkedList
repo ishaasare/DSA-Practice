@@ -1,0 +1,25 @@
+TC:O(n)
+SC:O(1)
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head==null||head.next==null||k==0) return head;
+        int n=1;
+        ListNode ptr = head;
+        while(ptr.next!=null){
+            ptr=ptr.next;
+            n++;
+        }
+        ptr.next=head;
+
+        k = k%n;
+        int newsteps = n-k;
+        ListNode newh = head;
+        for(int i=1;i<newsteps;i++){
+            newh = newh.next;
+        }
+        head=newh.next;
+        newh.next=null;
+
+        return head;        
+    }
+}
