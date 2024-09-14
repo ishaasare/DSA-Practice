@@ -1,0 +1,19 @@
+TC:O(n)
+SC:best-O(logn), worst-O(n) 
+class Solution {
+    public int maxPathSum(TreeNode root) {
+        int maxP[] = new int[1];
+        maxP[0] = Integer.MIN_VALUE;
+        Path(root, maxP);
+        return maxP[0];
+    }
+    public int Path(TreeNode root, int[] maxP){
+        if(root==null){
+            return 0;
+        }
+        int lefth = Math.max(0, Path(root.left, maxP));
+        int righth = Math.max(0, Path(root.right, maxP));
+        maxP[0] = Math.max(maxP[0], lefth+righth+root.val);
+        return Math.max(lefth,righth) + root.val;
+    }
+}
