@@ -1,0 +1,14 @@
+TC:O(n)
+SC:O(1)
+class Solution {
+
+    public int maxDepth(TreeNode root) {
+        if (root==null){
+            return 0;
+        }
+
+        int lefth = 1+maxDepth(root.left);
+        int righth = 1+maxDepth(root.right);
+        return Math.max(lefth,righth);
+    }
+}
