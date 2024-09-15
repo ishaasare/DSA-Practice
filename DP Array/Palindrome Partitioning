@@ -1,0 +1,38 @@
+Time Complexity: O(2^n * n^2)
+Space Complexity: O(n * 2^n)
+
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans = new ArrayList<>();
+        List<String> res = new ArrayList<>();
+        func(ans,res,0,s); return ans;
+        
+    }
+    public void func(List<List<String>> ans, List<String> res, int index, String s){
+        if(index==s.length()){
+            ans.add(new ArrayList<>(res));
+            return;
+        }
+
+        for(int i = index; i<s.length();i++){
+            if(isPalindrome(s,index,i)){
+                res.add(s.substring(index,i+1));
+                func(ans,res,i+1,s);
+                res.remove(res.size()-1);
+
+            }
+        }
+    }
+    public boolean isPalindrome(String s, int left, int right){
+        while(left<=right){
+            if(s.charAt(left)==s.charAt(right)){
+                left++;
+                right--;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+}
