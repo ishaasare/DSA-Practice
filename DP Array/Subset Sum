@@ -41,6 +41,32 @@ class Solution { //TC:O(n*sum) and sc: O(n*sum)
                 }
             }
         }
+-----------------------------------------------------
+
+class Solution {
+    // Function to return all subset sums
+    ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int n) {
+        ArrayList<Integer> result = new ArrayList<>();
+        calculateSubsetSums(arr, 0, 0, result);
+        Collections.sort(result);  // Sorting the result if required
+        return result;
+    }
+
+    // Recursive function to calculate subset sums
+    void calculateSubsetSums(ArrayList<Integer> arr, int index, int currentSum, ArrayList<Integer> result) {
+        // Base case: if we've processed all elements, add the current sum to the result
+        if (index == arr.size()) {
+            result.add(currentSum);
+            return;
+        }
+
+        // Two choices for each element:
+        // 1. Include the current element in the sum
+        calculateSubsetSums(arr, index + 1, currentSum + arr.get(index), result);
+
+        // 2. Exclude the current element from the sum
+        calculateSubsetSums(arr, index + 1, currentSum, result);
+    }}
         
         return dp[n][sum];
     }
