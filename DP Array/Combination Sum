@@ -1,0 +1,28 @@
+TC: O(2^t * k), where t is the target, and k is the average length of the combinations. This accounts for the exponential number of subsets and the linear time needed to process each combination.
+SC: O(target + 2^t * k)
+
+
+class Solution {
+    public void findSum(int ind, int target, int[] candidates, List<Integer> ds,List<List<Integer>> finalAns){        //if we reach target=0, that means we got target as that number since we keep subtracting
+        if(ind == candidates.length){
+            if(target==0){
+                finalAns.add(new ArrayList<>(ds));
+            }
+            return;
+        }
+        //if u pick and remain on same index
+        if(candidates[ind] <= target){
+            ds.add(candidates[ind]);
+            findSum(ind, target-candidates[ind],candidates, ds, finalAns);
+            ds.remove(ds.size()-1);
+        }
+        findSum(ind+1, target, candidates,ds, finalAns);
+
+
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> finalAns = new ArrayList<>();
+        findSum(0,target, candidates, new ArrayList<>(), finalAns);
+        return finalAns;
+    }
+}
