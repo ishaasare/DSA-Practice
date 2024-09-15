@@ -1,0 +1,24 @@
+Time Complexity: O(n log n + 2^n * k)
+Space Complexity: O(target + 2^n * k)
+
+class Solution {
+    public void findSum(int ind, int target, int[] candidates, List<Integer> ds, List<List<Integer>> finalAns){
+        if(target==0){
+            finalAns.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i=ind;i<candidates.length;i++){
+            if (i>ind && candidates[i]==candidates[i-1]) continue;
+            if(candidates[i] > target) break;
+            ds.add(candidates[i]);
+            findSum(i+1,target-candidates[i], candidates,ds,finalAns);
+            ds.remove(ds.size()-1);
+        }
+    }
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> finalAns = new ArrayList<>();
+        Arrays.sort(candidates);
+        findSum(0,target, candidates,new ArrayList<>(),finalAns);
+        return finalAns;
+    }
+}
